@@ -13,4 +13,9 @@ app.use(adminRoutes);
 
 app.use(shopRoutes);
 
+app.use((req,res,next) => {
+    // set my status node
+    res.status(404).send('<h1>Page not found</h1>');
+});
+
 app.listen(3000); //Listen for connections.A node http.Server is returned, with this application (which is a Function) as its callback. 
