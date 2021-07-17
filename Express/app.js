@@ -8,7 +8,7 @@ const app = express(); //Creates an Express application.
 app.use((req, res, next) => { 
 
     console.log('in middleware!!!');
-    next();
+    next(); // allows the request to conntinue to the next middleware in line
 
 } );//add new middlewarre function
 
