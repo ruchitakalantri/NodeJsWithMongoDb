@@ -15,11 +15,8 @@ app.use((req, res, next) => {
 app.use((req, res, next) => { 
 
     console.log('in another middleware!!!');
-    
     res.send('<h1> Hello from express!!!</h1>');//Send a response.
 
-} );
+});
 
-const server = http.createServer(app);
-
-server.listen(3000);
+app.listen(3000); //Listen for connections.A node http.Server is returned, with this application (which is a Function) as its callback. 
