@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 const app = express(); //Creates an Express application.
 
-const adminRoutes = require('./routes/admin');
+const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 //parser
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended : false})); //Returns middleware that on
 // serve file statically
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use(adminRoutes);
+app.use('/admin' , adminData.routes);
 
 app.use(shopRoutes);
 
