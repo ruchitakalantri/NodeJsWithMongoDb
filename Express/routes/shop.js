@@ -18,7 +18,7 @@ router.get('/' , (req, res, next) => {
     const products = adminData.products;
 
     // use templating engine : and return that template
-    res.render('shop', {prods: products , docTitle : 'Shop'});
+    res.render('shop', {prods: products , pageTitle : 'Shop' , path : '/'});
 });
 
 module.exports = router;
