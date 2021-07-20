@@ -5,6 +5,11 @@ const bodyParser = require('body-parser');
 
 const app = express(); //Creates an Express application.
 
+// global config value
+// we are telling express that we want to compile dynamically with pug engine
+app.set('view engine' , 'pug');
+app.set('views' , 'views');
+
 const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 

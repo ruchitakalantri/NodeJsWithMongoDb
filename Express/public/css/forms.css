@@ -1,29 +1,20 @@
-
 .form-control {
-    margin: 1rem;
+    margin: 1rem 0;
 }
-.form-control label ,
+
+.form-control label,
 .form-control input {
     display: block;
     width: 100%;
+    margin-bottom: 0.25rem;
 }
 
 .form-control input {
-    border: 1px solid aqua;
+    border: 1px solid #a1a1a1;
     font: inherit;
     border-radius: 2px;
 }
 
-button {
-    border: 1px solid black;
-    font: inherit;
-    color: violet;
-    background: whitesmoke;
-    border-radius: 3px;
-    cursor: pointer;
-}
-button:hover ,
-button:active {
-    color: red;
-    background: #1ddd84;
+.form-control input:focus {
+    outline-color: #00695c;
 }
