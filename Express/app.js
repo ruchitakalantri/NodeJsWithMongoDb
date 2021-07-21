@@ -5,15 +5,12 @@ const bodyParser = require('body-parser');
 
 const app = express(); //Creates an Express application.
 
-// global config value
-// we are telling express that we want to compile dynamically with pug engine
-// app.set('view engine' , 'pug');
+const errorController = require('./controllers/error');
 
-//ejs
 app.set('view engine' , 'ejs');
 app.set('views' , 'views');
 
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 //parser
@@ -22,15 +19,10 @@ app.use(bodyParser.urlencoded({extended : false})); //Returns middleware that on
 // serve file statically
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use('/admin' , adminData.routes);
+app.use('/admin' , adminRoutes);
 
 app.use(shopRoutes);
 
-app.use((req,res,next) => {
-
-    res.status(404).render('404' , {pageTitle : 'Page Not Founnd'});
-    // set my status node
-    //res.status(404).sendFile(path.join(__dirname ,'views' , '404.html'));
-});
+app.use(errorController.get404);
 
 app.listen(3000); //Listen for connections.A node http.Server is returned, with this application (which is a Function) as its callback. 
