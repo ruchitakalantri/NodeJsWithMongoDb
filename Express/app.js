@@ -34,7 +34,6 @@ app.use(errorController.get404);
 // sync your model to database
 sequelize.sync()
     .then(result => {
-        //console.log(result);
         app.listen(3000);
     })
     .catch(err => {
