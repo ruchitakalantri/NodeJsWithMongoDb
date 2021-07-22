@@ -20,27 +20,27 @@ exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
   
 
-  Product.findAll({where : {id : prodId}})
-    .then(products => {
-      res.render('shop/product-detail', {
-        product: products[0],
-        pageTitle: products[0].title,
-        path: '/products'
-      });
-    })
-    .catch(err => console.log(err));
-
-  //With Sequelize v5, findById() (which we'll use in this course) was replaced by findByPk().
-  
-  // Product.findByPk(prodId)
-  //   .then( product => {
+  // Product.findAll({where : {id : prodId}})
+  //   .then(products => {
   //     res.render('shop/product-detail', {
-  //       product: product,
-  //       pageTitle: product.title,
+  //       product: products[0],
+  //       pageTitle: products[0].title,
   //       path: '/products'
   //     });
   //   })
   //   .catch(err => console.log(err));
+
+  //With Sequelize v5, findById() (which we'll use in this course) was replaced by findByPk().
+  
+  Product.findByPk(prodId)
+    .then( product => {
+      res.render('shop/product-detail', {
+        product: product,
+        pageTitle: product.title,
+        path: '/products'
+      });
+    })
+    .catch(err => console.log(err));
 
   Product.findAll()
     .then(products => {
