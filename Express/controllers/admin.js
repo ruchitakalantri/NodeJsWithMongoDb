@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const User = require('../models/user');
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
@@ -14,7 +15,9 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const description = req.body.description;
   
-  Product.create({
+  // create new associated object
+  // atomatically create and connnect
+  req.user.createProduct({
     title : title,
     price : price,
     imageUrl : imageUrl,

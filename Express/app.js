@@ -22,13 +22,13 @@ const { nextTick } = require('process');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req,res,nexr) => { 
+app.use((req,res,next) => { 
     //reachout to  db 
     User.findByPk(8)
         .then(user => {
           //store request
           // req.user is user store in db
-          req.user = user;  
+          req.user = user;
           next();
         })
         .catch(err => console.log(err));
@@ -57,6 +57,8 @@ sequelize
         return user;
     })
     .then(user => {
+        console.log('RSK')
+        console.log(user);
         app.listen(3000);
     })
     .catch(err => {
