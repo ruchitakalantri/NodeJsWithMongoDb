@@ -9,6 +9,8 @@ const sequelize = require('./util/database');
 // model
 const Product = require('./models/product');
 const User = require('./models/user');
+const Cart = require('./models/cart');
+const CartItem = require('./models/cart-item');
 
 const app = express();
 
@@ -40,11 +42,17 @@ app.use(shopRoutes);
 app.use(errorController.get404);
 
 // SEQUELIZE will create table for model and also define relation between them
-//relate model
+//relation model
+// ASSOCIATIONS
 Product.belongsTo(User, {constraints : true , onDelete : 'CASCADE' });
 User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product , {through : CartItem});
+Product.belongsToMany(Cart , {through : CartItem});
 
 // sync your model to database
+//sync({force : true})  forcefully reset all table in database
 sequelize
     .sync()
     .then(result => {
