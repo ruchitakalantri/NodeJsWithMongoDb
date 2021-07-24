@@ -58,7 +58,7 @@ User.hasMany(Order);
 Order.belongsToMany(Product, {through : OrderItem});
 
 // sync your model to database
-//sync({force : true})  forcefully reset all table in database
+//sync({force : true})  forcefully reset all table in database -- overwrite table
 sequelize
     .sync()
     .then(result => {
