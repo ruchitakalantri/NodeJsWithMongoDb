@@ -15,7 +15,7 @@ const errorController = require('./controllers/error');
 // const Order = require('./models/order');
 // const OrderItem = require('./models/order-item');
 
-const mongoConnect = require('./util/database').mongoConnect;
+const mongoConnect = require('./util/database');
 
 const app = express();
 
@@ -24,6 +24,9 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 // const shopRoutes = require('./routes/shop');
+
+
+const mongoConnect = require('./util/database');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -82,7 +85,8 @@ app.use(errorController.get404);
 //     });
 
 
-    mongoConnect(() => {
+    mongoConnect(client => {
+        console.log(client);
         app.listen(3000);
 
     });
