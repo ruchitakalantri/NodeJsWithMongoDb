@@ -1,23 +1,28 @@
-// const mysql = require('mysql2');
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
-// // connection pool : pool of connetion.. multiple connection 
-// const pool = mysql.createPool({
-//     //db engine
-//     host : 'localhost',
-//     user : 'root',
-//     database : 'node-complete',
-//     password : 'password'
-// });
+let _db ;
 
-// // promise : callback inn struture way
-// module.exports = pool.promise();
-
-const Sequelize = require('sequelize');
-
-// new sequelize object : will atomatically connect to database
-const sequelize = new Sequelize('node-complete' , 'root' , 'password' , {
-    dialect : 'mysql' ,
-     host : 'localhost'
+const mongoConnect = callback => {
+  MongoClient
+    .connect('mongodb+srv://ruchita:3yJqczqiYF3f3cJE@cluster0.t1cyv.mongodb.net/shop?retryWrites=true&w=majority')
+    .then(client => {
+      console.log('Connected!');
+      _db = client.db();
+      callback();
+    })
+    .catch(err => {
+      console.log(err);
+      throw(err);
     });
+};
 
-    module.exports = sequelize;
+const getDb = () => {
+  if (_db) {
+    return _db;
+  }
+  throw 'NO DATABASE FOUND!'
+}
+
+exports.mongoConnect = mongoConnect;
+exports.getDb = getDb;
