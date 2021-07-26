@@ -12,6 +12,14 @@ class Product {
   // save it in db
   save() {
 
+    // get access to db
+    const db = getDb();
+    db.collection('products')
+      .insertOne(this)
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => console.log(err));
   }
 
 }
