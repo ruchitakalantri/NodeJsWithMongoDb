@@ -28,7 +28,11 @@ class User {
     //product.quantity = 1
     // ... : JS spread operator 
     // overwrite old cart to new cart
-    const updatedCart = {items : [{...product , quantity : 1 }]};
+    const updatedCart = {
+      items : [{
+        productId : new ObjectId(product._id) , 
+        quantity : 1
+     }]};
     const db = getDb();
     return db.collection('users')
       .updateOne(
