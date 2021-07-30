@@ -46,7 +46,34 @@ class User {
         { _id : new ObjectId(this._id)} , 
         { $set : {cart : updatedCart}}
       );
-  }
+    }
+
+    getCart() {
+      // already has cart
+      const db = getDb();
+      const productIds = this.cart.items.map( i => {
+        return i.productId;
+      })
+      // array of products : from database
+      // map : execute function on every ellement of array
+      return db.collection('products')
+                .find({_id : {$in : productIds}})
+                .toArray()
+                .then(products => {
+                  return products.map(p => {
+                    return {
+                      ...p ,
+                      quntity: this.cart.items.find( i => {
+                        // look at all element in  cart item
+                        return i.productId.toString() === p._id.toString();
+                    }).quantity
+                  };
+                  });
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+    }
 
   // .. find will give curser
   //.find({_id : new ObjectId(userId)}).next();
