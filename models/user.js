@@ -20,19 +20,26 @@ class User {
   }
 
   addToCart(product) {
-    // const cartProduct = this.cart.items.findIndex(cp => {
-    //   return cp.ObjectID-id === product._id
-    // });
+    // item already in cart
+    const cartProductIndex = this.cart.items.findIndex(cp => {
+      return cp.productId.toString() === product._id.toString();
+    });
 
-    // add product to cart
-    //product.quantity = 1
-    // ... : JS spread operator 
-    // overwrite old cart to new cart
+    let newQuantity = 1;
+    // copy old element first : updatedCartItems
+    const updatedCartItems = [...this.cart.items];
+    if (cartProductIndex >= 0 ) {
+      newQuantity = this.cart.items[cartProductIndex].quantity + 1 ;
+      updatedCartItems[cartProductIndex].quantity = newQuantity;
+    } else {
+      //item does not exist before
+      updatedCartItems.push({ productId : new ObjectId(product._id) , quantity : newQuantity})
+    }
+
+    // items to store into database
     const updatedCart = {
-      items : [{
-        productId : new ObjectId(product._id) , 
-        quantity : 1
-     }]};
+      items : updatedCartItems
+    };
     const db = getDb();
     return db.collection('users')
       .updateOne(
